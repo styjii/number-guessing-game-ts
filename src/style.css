@@ -109,6 +109,10 @@ button:hover {
     background: #C8E6C9;
 }
 
+.failure {
+    background: #FFCDD2;
+}
+
 #restart {
     margin-top: 20px;
     padding: .5rem 1rem;

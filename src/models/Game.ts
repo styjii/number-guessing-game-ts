@@ -1,4 +1,4 @@
-export type GuessResult = "higher" | "lower" | "correct";
+export type GuessResult = "higher" | "lower" | "correct" | "gameOver";
 
 export interface GameConfig {
   min: number;

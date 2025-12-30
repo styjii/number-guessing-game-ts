@@ -14,7 +14,7 @@ Le jeu vous donnera un retour sur chaque tentative et suivra le nombre d'essais.
 - Sélection de niveau de difficulté : Facile (1-10), Normal (1-100), Difficile (1-1000)
 - Saisir un nombre dans une plage définie selon le niveau choisi
 - Affichage des retours pour chaque tentative (trop haut, trop bas, correct)
-- Compteur du nombre d'essais
+- Compteur du nombre d'essais (maximum 5 tentatives)
 - Bouton pour recommencer le jeu
 - Développé avec TypeScript, HTML et CSS vanilla
 

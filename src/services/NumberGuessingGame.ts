@@ -4,6 +4,7 @@ export class NumberGuessingGame {
   private targetNumber: number;
   private attemptsCount = 0;
   private readonly config: GameConfig;
+  private readonly MAX_ATTEMPTS = 5;
 
   constructor(config: GameConfig) {
     if (config.min >= config.max) {
@@ -20,6 +21,10 @@ export class NumberGuessingGame {
   }
 
   public checkGuess(value: number): GuessResult {
+    if (this.attemptsCount >= this.MAX_ATTEMPTS) {
+      return "gameOver";
+    }
+
     this.attemptsCount++;
 
     if (value < this.targetNumber) return "higher";
@@ -38,5 +43,9 @@ export class NumberGuessingGame {
 
   public getConfig(): GameConfig {
     return this.config;
+  }
+
+  public getTargetNumber(): number {
+    return this.targetNumber;
   }
 }

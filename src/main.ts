@@ -24,7 +24,11 @@ function main(config: GameConfig): void {
     }
   
     const result = game.checkGuess(value);
-    ui.displayResult(result);
+    if (result === "gameOver") {
+      ui.displayGameOver(game.getTargetNumber());
+    } else {
+      ui.displayResult(result);
+    }
     ui.displayAttempts(game.getAttemptsCount());
   });
   

@@ -49,7 +49,13 @@ export class GameUI {
       higher: "Plus grand !",
       lower: "Plus petit !",
       correct: "Bravo ! Vous avez trouvé le nombre 🎉",
+      gameOver: "", // Will be set in displayGameOver
     } as const;
+
+    if (result === "gameOver") {
+      // Handled separately
+      return;
+    }
 
     this.displayMessage(
       messages[result],
@@ -66,6 +72,17 @@ export class GameUI {
     }
   }
 
+  public displayGameOver(targetNumber: number): void {
+    const message = `Perdu ! Le nombre était ${targetNumber}. Nombre maximum de tentatives atteint.`;
+    this.displayMessage(message, "red");
+    document.body.classList.add("failure");
+
+    // Désactive le bouton Submit
+    if (this.submitButton) {
+      this.submitButton.disabled = true;
+    }
+  }
+
   public displayAttempts(count: number): void {
     this.attemptsElement.textContent = `Nombre de tentatives : ${count}`;
   }
@@ -77,7 +94,7 @@ export class GameUI {
   public reset(): void {
     this.guessInput.value = "";
     this.displayMessage("", "black");
-    document.body.classList.remove("success");
+    document.body.classList.remove("success", "failure");
 
     if (this.submitButton) {
       this.submitButton.disabled = false;
