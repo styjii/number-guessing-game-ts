@@ -3,37 +3,51 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jeu de Deviner le Nombre (TypeScript + Vite)</title>
+  <title>Devinez le nombre</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <div class="container">
-    <h1>Devinez le nombre</h1>
-    <p id="rangeInfo">
-      Entrez un nombre entre <span id="min"></span> et <span id="max"></span> :
-    </p>
+  <main class="app">
+    <div class="card">
+      <h1>🎯 Devinez le nombre</h1>
 
-    <form id="gameForm">
-      <div class="gameLevel">
-        <label for="difficultyLevel">Niveau de difficulté : </label>
-        <select id="difficultyLevel">
-          <option value="easy">Easy</option>
-          <option value="normal" selected>Normal</option>
-          <option value="hard">Hard</option>
-        </select>
+      <p class="subtitle">
+        Entrez un nombre entre <strong id="min"></strong> et <strong id="max"></strong>
+      </p>
+
+      <form id="gameForm">
+        <div class="field">
+          <label for="difficultyLevel">Niveau de difficulté</label>
+          <select id="difficultyLevel">
+            <option value="easy">Facile</option>
+            <option value="normal" selected>Normal</option>
+            <option value="hard">Difficile</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <input
+            type="number"
+            id="guessInput"
+            placeholder="Votre nombre..."
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn primary">Deviner</button>
+      </form>
+
+      <div id="message" class="message"></div>
+
+      <div class="footer">
+        <span id="attempts">Tentatives : 0</span>
+        <button id="restart" class="btn secondary">Recommencer</button>
       </div>
+    </div>
+  </main>
 
-      <input type="number" id="guessInput" placeholder="nombre..." required />
-      <button type="submit">Deviner</button>
-    </form>
-
-    <p id="message"></p>
-    <p id="attempts">Nombre de tentatives : 0</p>
-
-    <button id="restart">Recommencer</button>
-  </div>
   <script type="module" src="/src/main.ts"></script>
 </body>
 

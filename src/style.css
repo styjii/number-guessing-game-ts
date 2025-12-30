@@ -1,119 +1,155 @@
-/* Style global */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background 0.5s;
+/* Reset minimal */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* Conteneur central */
-.container {
-    background-color: #fff;
-    padding: 40px 50px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    width: 350px;
-    transition: transform 0.3s;
+/* Fond général */
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+}
+
+/* App */
+.app {
+  width: 100%;
+  padding: 20px;
+}
+
+/* Carte centrale */
+.card {
+  max-width: 420px;
+  margin: auto;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 30px 28px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.6s ease;
 }
 
 /* Titre */
 h1 {
-    margin-bottom: 20px;
-    color: #333;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #2d2d2d;
 }
 
-/* Texte explicatif */
-p {
-    font-size: 16px;
-    color: #555;
+/* Sous-titre */
+.subtitle {
+  text-align: center;
+  font-size: 15px;
+  margin-bottom: 25px;
+  color: #666;
 }
 
-/* Formulaire */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 15px;
+/* Champs */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
 }
 
-#difficultyLevel,
-label[for="difficultyLevel"] {
-    font-size: 1rem;
-    outline: none;
-    color: #2a522a;
-    border-radius: .2rem;
+label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
 }
 
-/* Champ input */
-input[type="number"] {
-    padding: 12px 15px;
-    font-size: 16px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    transition: all 0.3s;
+/* Inputs & select */
+input,
+select {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1.5px solid #ddd;
+  font-size: 15px;
+  transition: all 0.25s ease;
 }
 
-input[type="number"]:focus {
-    border-color: #FF6B6B;
-    outline: none;
-    box-shadow: 0 0 8px rgba(255, 107, 107, 0.3);
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
 /* Boutons */
-button {
-    padding: 12px 0;
-    font-size: 16px;
-    background-color: #FF6B6B;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
-button:hover {
-    background-color: #FF3B3B;
-    transform: translateY(-2px);
+.btn.primary {
+  background: #667eea;
+  color: white;
 }
 
-/* Message animé */
-#message {
-    margin-top: 20px;
-    font-weight: bold;
-    min-height: 24px;
-    font-size: 16px;
-    transition: all 0.5s;
+.btn.primary:hover {
+  background: #5a6fe0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(102, 126, 234, 0.35);
+}
+
+.btn.secondary {
+  background: #f2f2f2;
+  color: #333;
+}
+
+.btn.secondary:hover {
+  background: #e5e5e5;
+}
+
+/* Message */
+.message {
+  margin-top: 18px;
+  text-align: center;
+  font-weight: 600;
+  min-height: 24px;
+}
+
+.message.success {
+  color: #2e7d32;
+}
+
+.message.error {
+  color: #c62828;
+}
+
+/* Footer */
+.footer {
+  margin-top: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
     opacity: 0;
-}
-
-/* Tentatives */
-#tentatives {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #333;
-    font-weight: bold;
-}
-
-/* Animation visible */
-.show {
-    opacity: 1 !important;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
     transform: translateY(0);
+  }
 }
 
-.success {
-    background: #C8E6C9;
-}
-
-.failure {
-    background: #FFCDD2;
-}
-
-#restart {
-    margin-top: 20px;
-    padding: .5rem 1rem;
+/* Responsive */
+@media (max-width: 480px) {
+  .card {
+    padding: 24px 20px;
+  }
 }
