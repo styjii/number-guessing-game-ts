@@ -1,38 +1,36 @@
 import "./style.css";
-import { NumberGuessingGame } from "./game";
-import type { GameConfig } from "./game";
-import { GameUI } from "./ui";
+import { NumberGuessingGame } from "./services/NumberGuessingGame";
+import { GameUI } from "./services/GameUI";
+import { difficultyLevelSelect, getLevel } from "./services/GameLevel";
+import type { GameConfig } from "./models/Game";
 
-const gameConfig: GameConfig = {
-  min: 1,
-  max: 100,
-};
+main(getLevel());
+difficultyLevelSelect.addEventListener("change", () => main(getLevel()));
 
-const app = document.querySelector<HTMLDivElement>("#app");
-if (!app) throw new Error("Élément #app introuvable");
-
-const game = new NumberGuessingGame(gameConfig);
-const ui = new GameUI(gameConfig);
-
-ui.onGuessSubmit((value) => {
-  if (
-    !Number.isInteger(value) ||
-    value < gameConfig.min ||
-    value > gameConfig.max
-  ) {
-    ui.displayError(
-      `Veuillez entrer un nombre entre ${gameConfig.min} et ${gameConfig.max}.`
-    );
-    return;
-  }
-
-  const result = game.checkGuess(value);
-  ui.displayResult(result);
-  ui.displayAttempts(game.getAttemptsCount());
-});
-
-ui.onRestart(() => {
-  game.reset();
-  ui.reset();
-  ui.displayAttempts(0);
-});
+function main(config: GameConfig): void {
+  const game = new NumberGuessingGame(config);
+  const ui = new GameUI(config);
+  
+  ui.onGuessSubmit((value: number) => {
+    if (
+      !Number.isInteger(value) ||
+      value < config.min ||
+      value > config.max
+    ) {
+      ui.displayError(
+        `Veuillez entrer un nombre entre ${config.min} et ${config.max}.`
+      );
+      return;
+    }
+  
+    const result = game.checkGuess(value);
+    ui.displayResult(result);
+    ui.displayAttempts(game.getAttemptsCount());
+  });
+  
+  ui.onRestart(() => {
+    game.reset();
+    ui.reset();
+    ui.displayAttempts(0);
+  });
+}

@@ -1,16 +1,15 @@
-import type { GuessResult, GameConfig } from "./game";
+import type { GuessResult, GameConfig } from "../models/Game";
 
 export class GameUI {
-  private form: HTMLFormElement;
-  private guessInput: HTMLInputElement;
-  private messageElement: HTMLParagraphElement;
-  private attemptsElement: HTMLParagraphElement;
-  private restartButton: HTMLButtonElement;
-  private rangeInfoElement: HTMLParagraphElement;
-  private submitButton: HTMLButtonElement;
+  private readonly form: HTMLFormElement;
+  private readonly guessInput: HTMLInputElement;
+  private readonly messageElement: HTMLParagraphElement;
+  private readonly attemptsElement: HTMLParagraphElement;
+  private readonly restartButton: HTMLButtonElement;
+  private readonly submitButton: HTMLButtonElement;
 
-  private minSpan: HTMLSpanElement;
-  private maxSpan: HTMLSpanElement;
+  private readonly minSpan: HTMLSpanElement;
+  private readonly maxSpan: HTMLSpanElement;
 
   constructor(config: GameConfig) {
     this.form = this.querySelector("#gameForm");
@@ -18,8 +17,7 @@ export class GameUI {
     this.messageElement = this.querySelector("#message");
     this.attemptsElement = this.querySelector("#attempts");
     this.restartButton = this.querySelector("#restart");
-    this.rangeInfoElement = this.querySelector("#rangeInfo");
-    this.submitButton = this.form.querySelector('button[type="submit"]');
+    this.submitButton = this.querySelector('form button[type="submit"]');
 
     this.minSpan = this.querySelector("#min");
     this.maxSpan = this.querySelector("#max");
@@ -47,11 +45,11 @@ export class GameUI {
   }
 
   public displayResult(result: GuessResult): void {
-    const messages: Record<GuessResult, string> = {
+    const messages = {
       higher: "Plus grand !",
       lower: "Plus petit !",
       correct: "Bravo ! Vous avez trouvé le nombre 🎉",
-    };
+    } as const;
 
     this.displayMessage(
       messages[result],
@@ -61,7 +59,6 @@ export class GameUI {
     if (result === "correct") {
       document.body.classList.add("success");
 
-      document.body.classList.add("success");
       // Désactive le bouton Submit
       if (this.submitButton) {
         this.submitButton.disabled = true;

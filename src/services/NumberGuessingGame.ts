@@ -1,9 +1,4 @@
-export type GuessResult = "higher" | "lower" | "correct";
-
-export interface GameConfig {
-  min: number;
-  max: number;
-}
+import type { GameConfig, GuessResult } from "../models/Game";
 
 export class NumberGuessingGame {
   private targetNumber: number;
@@ -12,7 +7,7 @@ export class NumberGuessingGame {
 
   constructor(config: GameConfig) {
     if (config.min >= config.max) {
-      throw new Error("min doit être inférieur à max");
+      throw new Error("La valeur minimale doit être inférieure à la valeur maximale.");
     }
 
     this.config = config;

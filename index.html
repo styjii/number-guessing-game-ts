@@ -1,31 +1,38 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>vanilla-ts-starter</title>
+  <title>Jeu de Deviner le Nombre (TypeScript + Vite)</title>
 </head>
 
 <body>
-  <div id="app">
-    <div class="container">
-      <h1>Devinez le nombre</h1>
-      <p id="rangeInfo">
-        Entrez un nombre entre <span id="min"></span> et <span id="max"></span> :
-      </p>
-      
-      <form id="gameForm">
-        <input type="number" id="guessInput" required />
-        <button type="submit">Deviner</button>
-      </form>
-      
-      <p id="message"></p>
-      <p id="attempts">Nombre de tentatives : 0</p>
-      
-      <button id="restart">Recommencer</button>
-    </div>
+  <div class="container">
+    <h1>Devinez le nombre</h1>
+    <p id="rangeInfo">
+      Entrez un nombre entre <span id="min"></span> et <span id="max"></span> :
+    </p>
+
+    <form id="gameForm">
+      <div class="gameLevel">
+        <label for="difficultyLevel">Niveau de difficulté : </label>
+        <select id="difficultyLevel">
+          <option value="easy">Easy</option>
+          <option value="normal" selected>Normal</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+
+      <input type="number" id="guessInput" placeholder="nombre..." required />
+      <button type="submit">Deviner</button>
+    </form>
+
+    <p id="message"></p>
+    <p id="attempts">Nombre de tentatives : 0</p>
+
+    <button id="restart">Recommencer</button>
   </div>
   <script type="module" src="/src/main.ts"></script>
 </body>

@@ -41,6 +41,14 @@ form {
     margin-top: 15px;
 }
 
+#difficultyLevel,
+label[for="difficultyLevel"] {
+    font-size: 1rem;
+    outline: none;
+    color: #2a522a;
+    border-radius: .2rem;
+}
+
 /* Champ input */
 input[type="number"] {
     padding: 12px 15px;
