@@ -28,8 +28,16 @@ export class NumberGuessingGame {
 
     this.attemptsCount++;
 
-    if (value < this.targetNumber) return "higher";
-    if (value > this.targetNumber) return "lower";
+    if (value < this.targetNumber) {
+      if (this.attemptsCount >= this.MAX_ATTEMPTS) return "gameOver";
+      return "higher";
+    }
+
+    if (value > this.targetNumber) {
+      if (this.attemptsCount >= this.MAX_ATTEMPTS) return "gameOver";
+      return "lower";
+    }
+
     return "correct";
   }
 

@@ -11,7 +11,8 @@ export class GameUI {
   private readonly minSpan: HTMLSpanElement;
   private readonly maxSpan: HTMLSpanElement;
 
-  private readonly maxAttemptsElement: HTMLParagraphElement; // <-- ajouté
+  private readonly maxAttemptsElement: HTMLParagraphElement;
+  private readonly historyList: HTMLUListElement;
 
   constructor(config: GameConfig) {
     this.form = this.querySelector("#gameForm");
@@ -23,7 +24,9 @@ export class GameUI {
 
     this.minSpan = this.querySelector("#min");
     this.maxSpan = this.querySelector("#max");
-    this.maxAttemptsElement = this.querySelector("#maxAttempts"); // <-- lié au HTML
+
+    this.maxAttemptsElement = this.querySelector("#maxAttempts");
+    this.historyList = this.querySelector("#historyList");
 
     this.initializeRange(config);
   }
@@ -43,8 +46,34 @@ export class GameUI {
     });
   }
 
+  public updateRange(config: GameConfig): void {
+    this.guessInput.min = String(config.min);
+    this.guessInput.max = String(config.max);
+    this.minSpan.textContent = String(config.min);
+    this.maxSpan.textContent = String(config.max);
+  }
+
   public onRestart(handler: () => void): void {
     this.restartButton.addEventListener("click", handler);
+  }
+
+  public addToHistory(value: number, result: GuessResult): void {
+    const li = document.createElement("li");
+    let text = `Vous avez entré ${value}`;
+    if (result === "higher") text += " → Plus grand";
+    else if (result === "lower") text += " → Plus petit";
+    else if (result === "correct") text += " → Correct ! 🎉";
+
+    li.textContent = text;
+    if (this.historyList.firstChild) {
+      this.historyList.insertBefore(li, this.historyList.firstChild);
+    } else {
+      this.historyList.appendChild(li);
+    }
+  }
+
+  public resetHistory(): void {
+    this.historyList.innerHTML = "";
   }
 
   public displayResult(result: GuessResult): void {
@@ -80,7 +109,7 @@ export class GameUI {
     this.attemptsElement.textContent = `Nombre de tentatives : ${count}`;
   }
 
-  public displayMaxAttempts(max: number): void { // <-- méthode ajoutée
+  public displayMaxAttempts(max: number): void {
     this.maxAttemptsElement.textContent = `Nombre maximum de tentatives : ${max}`;
   }
 

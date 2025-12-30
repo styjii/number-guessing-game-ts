@@ -4,39 +4,51 @@ import { GameUI } from "./services/GameUI";
 import { difficultyLevelSelect, getLevel } from "./services/GameLevel";
 import type { GameConfig } from "./models/Game";
 
-main(getLevel());
-difficultyLevelSelect.addEventListener("change", () => main(getLevel()));
+let game: NumberGuessingGame;
+let ui: GameUI;
 
-function main(config: GameConfig): void {
-  const game = new NumberGuessingGame(config);
-  const ui = new GameUI(config);
-
-  // Affiche les essais max au démarrage
-  ui.displayMaxAttempts(game.getMaxAttempts());
-
-  ui.onGuessSubmit((value: number) => {
-    if (!Number.isInteger(value) || value < config.min || value > config.max) {
-      ui.displayError(
-        `Veuillez entrer un nombre entre ${config.min} et ${config.max}.`
-      );
-      return;
-    }
-
-    const result = game.checkGuess(value);
-
-    if (result === "gameOver") {
-      ui.displayGameOver(game.getTargetNumber());
-    } else {
-      ui.displayResult(result);
-    }
-
-    ui.displayAttempts(game.getAttemptsCount());
-  });
-
-  ui.onRestart(() => {
-    game.reset();
-    ui.reset();
-    ui.displayAttempts(0);
+function startGame(config: GameConfig): void {
+  game = new NumberGuessingGame(config);
+  
+  if (!ui) {
+    ui = new GameUI(config);
     ui.displayMaxAttempts(game.getMaxAttempts());
-  });
+
+    ui.onGuessSubmit((value: number) => {
+      const currentConfig = game.getConfig();
+
+      if (!Number.isInteger(value) || value < currentConfig.min || value > currentConfig.max) {
+        ui.displayError(`Veuillez entrer un nombre entre ${currentConfig.min} et ${currentConfig.max}.`);
+        return;
+      }
+
+      const result = game.checkGuess(value);
+      ui.addToHistory(value, result);
+
+      if (result === "gameOver") {
+        ui.displayGameOver(game.getTargetNumber());
+      } else {
+        ui.displayResult(result);
+      }
+
+      ui.displayAttempts(game.getAttemptsCount());
+    });
+
+    ui.onRestart(() => {
+      game.reset();
+      ui.reset();
+      ui.resetHistory();
+      ui.displayAttempts(0);
+      ui.displayMaxAttempts(game.getMaxAttempts());
+    });
+  } else {
+    ui.reset();
+    ui.resetHistory();
+    ui.displayMaxAttempts(game.getMaxAttempts());
+    ui.displayAttempts(0);
+    ui.updateRange(config);
+  }
 }
+
+startGame(getLevel());
+difficultyLevelSelect.addEventListener("change", () => startGame(getLevel()));
