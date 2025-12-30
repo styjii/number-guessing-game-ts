@@ -5,7 +5,7 @@
   padding: 0;
 }
 
-/* Fond général */
+/* Body */
 body {
   font-family: 'Inter', 'Segoe UI', sans-serif;
   min-height: 100vh;
@@ -31,25 +31,31 @@ body.failure {
   padding: 20px;
 }
 
-/* Carte centrale */
+/* Card */
 .card {
   max-width: 420px;
+  width: 100%;
   margin: auto;
   background: #ffffff;
-  border-radius: 18px;
+  border-radius: 20px;
   padding: 30px 28px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.6s ease;
+  transition: transform 0.3s ease;
 }
 
-/* Titre */
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* Title */
 h1 {
   text-align: center;
   margin-bottom: 10px;
   color: #2d2d2d;
 }
 
-/* Sous-titre */
+/* Subtitle */
 .subtitle {
   text-align: center;
   font-size: 15px;
@@ -57,7 +63,7 @@ h1 {
   color: #666;
 }
 
-/* Champs */
+/* Fields */
 .field {
   display: flex;
   flex-direction: column;
@@ -71,7 +77,6 @@ label {
   color: #444;
 }
 
-/* Inputs & select */
 input,
 select {
   padding: 12px 14px;
@@ -88,7 +93,7 @@ select:focus {
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
 }
 
-/* Boutons */
+/* Buttons */
 .btn {
   border: none;
   border-radius: 10px;
@@ -125,14 +130,11 @@ select:focus {
   text-align: center;
   font-weight: 600;
   min-height: 24px;
-
   opacity: 0;
   transform: translateY(10px);
-
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-/* Affichage déclenché par TS */
 .message.show {
   opacity: 1;
   transform: translateY(0);
@@ -142,12 +144,67 @@ select:focus {
 .footer {
   margin-top: 22px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
   font-size: 14px;
+  background: #f5f5f5;
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease;
 }
 
-/* Animation */
+.footer span {
+  font-weight: 600;
+  color: #333;
+}
+
+.footer span,
+.footer button {
+  flex: 1 1 auto;
+  min-width: 120px;
+  text-align: center;
+}
+
+
+.footer button {
+  background: #667eea;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.footer button:hover {
+  background: #5a6fe0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(102, 126, 234, 0.35);
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 24px 20px;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .footer span {
+    text-align: center;
+  }
+
+  .footer button {
+    width: 100%;
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -156,12 +213,5 @@ select:focus {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-  .card {
-    padding: 24px 20px;
   }
 }

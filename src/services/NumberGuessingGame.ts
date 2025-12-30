@@ -4,7 +4,7 @@ export class NumberGuessingGame {
   private targetNumber: number;
   private attemptsCount = 0;
   private readonly config: GameConfig;
-  private readonly MAX_ATTEMPTS = 5;
+  private readonly MAX_ATTEMPTS: number;
 
   constructor(config: GameConfig) {
     if (config.min >= config.max) {
@@ -12,6 +12,7 @@ export class NumberGuessingGame {
     }
 
     this.config = config;
+    this.MAX_ATTEMPTS = Math.ceil(Math.log2(config.max - config.min + 1));
     this.targetNumber = this.generateRandomNumber();
   }
 
@@ -39,6 +40,10 @@ export class NumberGuessingGame {
 
   public getAttemptsCount(): number {
     return this.attemptsCount;
+  }
+
+  public getMaxAttempts(): number {
+    return this.MAX_ATTEMPTS;
   }
 
   public getConfig(): GameConfig {

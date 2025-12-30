@@ -11,6 +11,8 @@ export class GameUI {
   private readonly minSpan: HTMLSpanElement;
   private readonly maxSpan: HTMLSpanElement;
 
+  private readonly maxAttemptsElement: HTMLParagraphElement; // <-- ajouté
+
   constructor(config: GameConfig) {
     this.form = this.querySelector("#gameForm");
     this.guessInput = this.querySelector("#guessInput");
@@ -21,6 +23,7 @@ export class GameUI {
 
     this.minSpan = this.querySelector("#min");
     this.maxSpan = this.querySelector("#max");
+    this.maxAttemptsElement = this.querySelector("#maxAttempts"); // <-- lié au HTML
 
     this.initializeRange(config);
   }
@@ -49,13 +52,10 @@ export class GameUI {
       higher: "Plus grand !",
       lower: "Plus petit !",
       correct: "Bravo ! Vous avez trouvé le nombre 🎉",
-      gameOver: "", // Will be set in displayGameOver
+      gameOver: "", // géré dans displayGameOver
     } as const;
 
-    if (result === "gameOver") {
-      // Handled separately
-      return;
-    }
+    if (result === "gameOver") return;
 
     this.displayMessage(
       messages[result],
@@ -64,11 +64,7 @@ export class GameUI {
 
     if (result === "correct") {
       document.body.classList.add("success");
-
-      // Désactive le bouton Submit
-      if (this.submitButton) {
-        this.submitButton.disabled = true;
-      }
+      if (this.submitButton) this.submitButton.disabled = true;
     }
   }
 
@@ -77,14 +73,15 @@ export class GameUI {
     this.displayMessage(message, "red");
     document.body.classList.add("failure");
 
-    // Désactive le bouton Submit
-    if (this.submitButton) {
-      this.submitButton.disabled = true;
-    }
+    if (this.submitButton) this.submitButton.disabled = true;
   }
 
   public displayAttempts(count: number): void {
     this.attemptsElement.textContent = `Nombre de tentatives : ${count}`;
+  }
+
+  public displayMaxAttempts(max: number): void { // <-- méthode ajoutée
+    this.maxAttemptsElement.textContent = `Nombre maximum de tentatives : ${max}`;
   }
 
   public displayError(message: string): void {
@@ -96,9 +93,7 @@ export class GameUI {
     this.displayMessage("", "black");
     document.body.classList.remove("success", "failure");
 
-    if (this.submitButton) {
-      this.submitButton.disabled = false;
-    }
+    if (this.submitButton) this.submitButton.disabled = false;
   }
 
   private displayMessage(text: string, color: string): void {
@@ -112,9 +107,7 @@ export class GameUI {
 
   private querySelector<T extends HTMLElement>(selector: string): T {
     const element = document.querySelector(selector);
-    if (!element) {
-      throw new Error(`Élément ${selector} introuvable`);
-    }
+    if (!element) throw new Error(`Élément ${selector} introuvable`);
     return element as T;
   }
 }
