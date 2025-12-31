@@ -14,6 +14,15 @@ body {
   justify-content: center;
   align-items: center;
   color: #333;
+  transition: background 0.6s ease;
+}
+
+body.success {
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+}
+
+body.failure {
+  background: linear-gradient(135deg, #c62828, #8e0000);
 }
 
 /* App */
@@ -116,14 +125,17 @@ select:focus {
   text-align: center;
   font-weight: 600;
   min-height: 24px;
+
+  opacity: 0;
+  transform: translateY(10px);
+
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.message.success {
-  color: #2e7d32;
-}
-
-.message.error {
-  color: #c62828;
+/* Affichage déclenché par TS */
+.message.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Footer */
